@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.util.stream.Collectors;
 
-public class Main extends Application {
+public class Mainpage extends Application {
 
     private TableView<Product> table;
     private ObservableList<Product> products;
