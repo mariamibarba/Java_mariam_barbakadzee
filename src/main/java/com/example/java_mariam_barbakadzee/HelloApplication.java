@@ -15,14 +15,17 @@ package com.example.java_mariam_barbakadzee;
 //		მონაცემთა ბაზა შეგიძლიათ შექმნათ XAMP- ის დახმარებით, ან გამოიყენეთინტერნეტში არსებული რომელიმე უფასო MYSQL მონაცემთა ბაზია სერვისი.
 
 
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -32,40 +35,24 @@ public class HelloApplication extends Application {
         ProductUtil.createTable();
 
         Text mainText = new Text("Enter Product Information");
-        mainText.setLayoutX(100);
-        mainText.setLayoutY(20);
 
         TextField name = new TextField();
-        name.setLayoutX(100);
-        name.setLayoutY(40);
         name.setPromptText("Name");
 
         TextField price = new TextField();
-        price.setLayoutX(100);
-        price.setLayoutY(80);
         price.setPromptText("Price");
 
         Button insertButton = new Button("Insert");
-        insertButton.setLayoutX(100);
-        insertButton.setLayoutY(120);
 
         Text finalText = new Text();
-        finalText.setLayoutX(100);
-        finalText.setLayoutY(160);
 
         Button getChartButton = new Button("Get Chart");
-        getChartButton.setLayoutX(100);
-        getChartButton.setLayoutY(200);
 
-        Group root = new Group();
+        VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(20));
+        vbox.getChildren().addAll(mainText, name, price, insertButton, finalText, getChartButton);
 
-        root.getChildren().add(mainText);
-        root.getChildren().add(name);
-        root.getChildren().add(price);
-        root.getChildren().add(insertButton);
-        root.getChildren().add(finalText);
-        root.getChildren().add(getChartButton);
-
+        Group root = new Group(vbox);
 
         insertButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -86,13 +73,14 @@ public class HelloApplication extends Application {
             public void handle(ActionEvent actionEvent) {
                 PieChart pieChart = new PieChart();
                 pieChart.setData(ProductUtil.readData());
+                pieChart.setPrefSize(300, 300);
                 pieChart.setLayoutX(300);
                 pieChart.setLayoutY(20);
                 root.getChildren().add(pieChart);
             }
         });
 
-        Scene scene = new Scene(root, 500, 300);
+        Scene scene = new Scene(root, 800, 400); // Adjust the scene size accordingly
         stage.setTitle("Product Management");
         stage.setScene(scene);
         stage.show();
